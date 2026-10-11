@@ -1,30 +1,21 @@
 # opencode-julia
 
-OpenCode container image for Julia development, built on top of [opencode-xdgopen](https://github.com/sondalex/opencode-xdgopen).
+OpenCode container image for Julia development, built on top of [opencode-xdgopen](https://github.com/sondalex/opencode-xdgopen) (`:debian` tag, glibc-based).
 
 **This is an independent project and is not affiliated with or endorsed by OpenCode**.
 
-This image inherits from `ghcr.io/sondalex/opencode-xdgopen:latest` and adds Julia.
+This image inherits from `ghcr.io/sondalex/opencode-xdgopen:debian` and adds
+Julia, installed via the official [juliaup](https://github.com/JuliaLang/juliaup)
+installer.
 
-## Why not `apk` or `juliaup`?
+## Why glibc instead of Alpine/musl?
 
-- Alpine's package repositories (`main`, `community`, `testing`) do not ship a
-  `julia` package, so `apk add julia` is not available.
-- `juliaup`'s prebuilt launcher is glibc-only and crashes on musl-based
-  systems like Alpine (see https://github.com/JuliaLang/juliaup).
+- Julia's musl (Alpine) build is Tier 4 support upstream and is currently
+  known not to build/run correctly.
+- `juliaup`'s prebuilt launcher is also glibc-only and crashes on musl.
 
-Instead, Julia is installed directly from the official **musl** build
-published by JuliaLang (`opencode-xdgopen` is Alpine-based, i.e. musl libc).
-
-The Julia version is pinned via the `JULIA_VERSION` / `JULIA_MAJOR_MINOR`
-build args, e.g.:
-
-```bash
-podman build \
-  --build-arg JULIA_VERSION=1.10.5 \
-  --build-arg JULIA_MAJOR_MINOR=1.10 \
-  -t ghcr.io/sondalex/opencode-julia:<tag> .
-```
+So this image is based on the Debian-based (`:debian`) variant of
+`opencode-xdgopen` rather than the default Alpine-based image.
 
 ## Usage
 
