@@ -3,6 +3,10 @@ FROM ghcr.io/sondalex/opencode-xdgopen:debian
 ARG JULIA_VERSION=1.10.5
 ARG JULIA_MAJOR_MINOR=1.10
 
+# The base image is Alpine (musl) despite its tag; glibc Julia needs a compat layer.
+USER root
+RUN apk add --no-cache gcompat libstdc++ libgcc
+
 RUN ARCH=$(uname -m) \
   && case "$ARCH" in \
        x86_64) JULIA_ARCH="x86_64"; JULIA_DIR="x64" ;; \

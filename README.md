@@ -1,6 +1,6 @@
 # opencode-julia
 
-OpenCode container image for Julia development, built on top of [opencode-xdgopen](https://github.com/sondalex/opencode-xdgopen) (`:debian` tag, glibc-based).
+OpenCode container image for Julia development, built on top of [opencode-xdgopen](https://github.com/sondalex/opencode-xdgopen) (`:debian` tag, which is actually Alpine/musl-based; `gcompat` is installed so the glibc Julia build runs).
 
 **This is an independent project and is not affiliated with or endorsed by OpenCode**.
 
