@@ -15,4 +15,6 @@ RUN ARCH=$(uname -m) \
   && rm /tmp/julia.tar.gz \
   && ln -s /opt/julia/bin/julia /usr/local/bin/julia
 
+ENV PATH="/opt/julia/bin:${PATH}"
+
 RUN julia --version
